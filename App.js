@@ -1,42 +1,27 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
  * @flow
  */
+import {createAppContainer} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
+import HomeScreen from "./containers/ImagesListContainer";
+import ImageScreen from './components/imageComponent';
+import configureStore from './store';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-} from 'react-native';
-import ContainerImagesList from "./containers/ContainerImagesList";
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-
-          <ContainerImagesList />
-
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
+const initialState = {
+  appData: {},
+  activeImage: null,
 };
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
+const store = configureStore(initialState);
+
+
+
+const MainNavigator = createStackNavigator({
+  Home: {screen: HomeScreen},
+  ImageScreen: {screen: ImageScreen},
 });
+
+const App = createAppContainer(MainNavigator);
 
 export default App;
